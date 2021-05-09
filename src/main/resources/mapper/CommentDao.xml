@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzau.dp.dao.CommentDao">
+    <!--<select id="listComment" resultType="com.hzau.dp.entity.Comment">
+        select * from comment
+        where store_id=#{storeId}
+    </select>-->
+    <select id="listComment" resultType="com.hzau.dp.entity.CommentPlus">
+        select comment.comment_id,comment.user_name,user.nickname,comment.store_id,comment_score,comment_text,comment_date
+        from comment inner join user on comment.user_name = user.user_name
+        where store_id=#{storeId}
+        order by comment_id desc
+    </select>
+    <select id="queryById" resultType="com.hzau.dp.entity.Comment">
+        select * from comment
+        where comment_id=#{commentId}
+    </select>
+    <insert id="addComment" parameterType="com.hzau.dp.entity.Comment">
+        insert into comment(user_name, store_id, comment_score, comment_text)
+        values(#{userName},#{storeId},#{commentScore},#{commentText})
+    </insert>
+    <delete id="deleteComment" parameterType="java.lang.Integer">
+        delete from comment
+        where comment_id=#{commentId}
+    </delete>
+    <update id="calScore" parameterType="java.lang.Integer">
+        update store
+        set store_score=(select avg(comment_score) from comment where store_id=#{storeId})
+        where store_id=#{storeId}
+    </update>
+</mapper>

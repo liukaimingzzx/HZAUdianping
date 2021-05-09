@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzau.dp.dao.StoreDao">
+    <select id="listByCid" resultType="com.hzau.dp.entity.Store">
+        select * from store
+        where canteen_id=#{canteenId}
+        order by store_id asc
+    </select>
+    <select id="queryStoreById" resultType="com.hzau.dp.entity.Store">
+        select * from store
+        where store_id=#{storeId}
+    </select>
+    <select id="query2" resultType="com.hzau.dp.entity.Store">
+        select store_name,store_floor,store_score from store
+        where store_id = #{storeId}
+    </select>
+</mapper>

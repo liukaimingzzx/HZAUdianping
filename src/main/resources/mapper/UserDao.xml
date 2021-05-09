@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzau.dp.dao.UserDao">
+    <select id="judgeUser" resultType="com.hzau.dp.entity.User">
+        select * from user
+        where password=#{password} and user_name=#{userName}
+    </select>
+
+    <insert id="insertUser" parameterType="com.hzau.dp.entity.User">
+        insert into user(user_name,nickname,password)
+        values
+        (#{userName},#{nickname},#{password})
+    </insert>
+
+    <select id="queryUserByName" resultType="com.hzau.dp.entity.User">
+        select *
+        from user
+        where user_name=#{userName}
+    </select>
+
+    <update id="updateUser" parameterType="com.hzau.dp.entity.User">
+        update user
+        set age=#{age},hometown=#{hometown},password=#{password},gender=#{gender},nickname=#{nickname},signature=#{signature}
+        where user_name=#{userName}
+    </update>
+
+</mapper>
